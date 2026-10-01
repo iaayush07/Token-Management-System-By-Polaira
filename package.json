@@ -23,6 +23,8 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-redux": "9.3.0",
+    "jsqr": "1.4.0",
+    "qrcode.react": "4.2.0",
     "react-router-dom": "7.18.4"
   },
   "devDependencies": {
