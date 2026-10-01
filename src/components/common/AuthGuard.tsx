@@ -5,6 +5,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { setCredentials, logout, setLoading } from '@/store/slices/authSlice'
 import { getMe } from '@/services/authService'
+import { isTokenExpired } from '@/utils/api'
 
 interface AuthGuardProps {
   children: ReactNode
@@ -16,7 +17,14 @@ export function AuthGuard({ children }: AuthGuardProps) {
   const location = useLocation()
 
   useEffect(() => {
-    if (!token || user) return
+    if (!token) return
+
+    if (isTokenExpired(token)) {
+      dispatch(logout())
+      return
+    }
+
+    if (user) return
 
     dispatch(setLoading(true))
     getMe()

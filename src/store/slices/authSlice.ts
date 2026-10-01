@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { AuthState, User } from '@/types'
+import { isTokenExpired } from '@/utils/api'
 
 const TOKEN_KEY = 'tms_token'
 const USER_KEY = 'tms_user'
@@ -8,6 +9,11 @@ const USER_KEY = 'tms_user'
 function loadFromStorage(): Pick<AuthState, 'user' | 'token'> {
   try {
     const token = localStorage.getItem(TOKEN_KEY)
+    if (token && isTokenExpired(token)) {
+      localStorage.removeItem(TOKEN_KEY)
+      localStorage.removeItem(USER_KEY)
+      return { token: null, user: null }
+    }
     const userRaw = localStorage.getItem(USER_KEY)
     const user: User | null = userRaw ? (JSON.parse(userRaw) as User) : null
     return { token, user }
