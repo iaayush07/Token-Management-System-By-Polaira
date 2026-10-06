@@ -96,11 +96,11 @@ export default function TodaysTokenPage() {
                   </Stack>
                 )}
                 {displayStatus === 'valid' && tokenValue && (
-                  <QRCodeSVG value={tokenValue} size={240} />
+                  <QRCodeSVG value={tokenValue} size={260} />
                 )}
                 {displayStatus === 'expired' && tokenValue && (
                   <Stack align="center" gap="xs">
-                    <QRCodeSVG value={tokenValue} size={200} style={{ opacity: 0.3 }} />
+                    <QRCodeSVG value={tokenValue} size={260} style={{ opacity: 0.3 }} />
                   </Stack>
                 )}
                 {displayStatus === 'expired' && !tokenValue && (
